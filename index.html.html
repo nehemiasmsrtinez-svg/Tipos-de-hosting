@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tipos de Hosting </title>
+  <style>
+
+:root {
+  --bg: #04060f;
+  --bg-2: #080c1a;
+  --bg-3: #0d1128;
+  --surface: #0f1520;
+  --surface-2: #151c2e;
+  --border: rgba(56, 100, 220, 0.18);
+  --border-glow: rgba(56, 120, 255, 0.35);
+
+  --blue: #2d7bff;
+  --blue-light: #5b9dff;
+  --blue-dim: rgba(45, 123, 255, 0.12);
+  --cyan: #00d4ff;
+  --green: #00e676;
+  --amber: #ffb300;
+  --red: #ff4757;
+
+  --text: #e8eaf6;
+  --text-2: #8892b0;
+  --text-3: #4a5568;
+
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mono { font-family: var(--font-mono); }
+.accent { color: var(--blue); }
+
+/* ==============================
+   NAVBAR
+============================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(4, 6, 15, 0.7);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  padding: 12px 40px;
+  background: rgba(4, 6, 15, 0.95);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.brand-icon {
+  font-size: 1.3rem;
+  color: var(--blue);
+  animation: pulse-icon 3s ease infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-2);
+  transition: color var(--transition);
+  letter-spacing: 0.05em;
+}
+
+.nav-links a:hover { color: var(--blue-light); }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  transition: var(--transition);
+}
+
+/* ==============================
+   HERO
+============================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 120px 40px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.hero-bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-glow {
+  position: absolute;
+  top: -150px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(45, 123, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  animation: fade-up 0.9s ease both;
+}
+
+.hero-label {
+  font-size: 0.75rem;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+.hero-accent {
+  color: var(--blue);
+  -webkit-text-stroke: 2px var(--blue);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-2);
+  max-width: 520px;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 14px 28px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.btn-primary:hover::after { opacity: 1; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(45, 123, 255, 0.4); }
+
+.btn-outline {
+  padding: 14px 28px;
+  border: 1px solid var(--border-glow);
+  color: var(--blue-light);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  transition: var(--transition);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+
+/* Server Rack Visual */
+.hero-visual {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  animation: fade-up 0.9s 0.2s ease both;
+}
+
+.server-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 60px rgba(45, 123, 255, 0.1);
+}
+
+.rack-unit {
+  width: 240px;
+  height: 44px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 8px;
+  animation: fade-in-left 0.6s calc(var(--d) * 0.1s) ease both;
+}
+
+.rack-unit::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-3);
+  flex-shrink: 0;
+}
+
+.rack-unit::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  border-radius: 2px;
+}
+
+.rack-unit.active::before {
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: blink 1.5s calc(var(--d) * 0.3s) ease infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ==============================
+   SECTIONS SHARED
+============================== */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-tag {
+  font-size: 0.72rem;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.section-sub {
+  color: var(--text-2);
+  font-size: 1rem;
+  max-width: 600px;
+  margin-bottom: 56px;
+}
+
+/* ==============================
+   WHAT IS SECTION
+============================== */
+.what-is {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+}
+
+.what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.what-text p {
+  color: var(--text-2);
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.what-text strong { color: var(--text); }
+
+.fact-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.fact-box {
+  flex: 1;
+  min-width: 90px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.fact-box:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-3px);
+}
+
+.fact-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--blue);
+}
+
+.fact-label {
+  font-size: 0.72rem;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+}
+
+/* Diagram */
+.what-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.diagram-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 32px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  transition: var(--transition);
+}
+
+.diagram-node:hover { border-color: var(--border-glow); }
+.node-icon { font-size: 1.8rem; }
+
+.diagram-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.arrow-line {
+  width: 2px;
+  height: 28px;
+  background: linear-gradient(to bottom, var(--blue), transparent);
+}
+
+.arrow-label {
+  font-size: 0.65rem;
+  color: var(--blue);
+  opacity: 0.7;
+}
+
+/* ==============================
+   HOSTING CARDS
+============================== */
+.tipos { background: var(--bg); }
+
+.hosting-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 28px;
+  overflow: hidden;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hosting-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hosting-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 12px 48px rgba(45, 123, 255, 0.1);
+}
+
+.hosting-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.hosting-card:hover::before { opacity: 1; }
+
+.hosting-card.featured {
+  border-color: rgba(45, 123, 255, 0.4);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+}
+
+.hosting-card.featured::before { opacity: 1; }
+
+.card-featured-label {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.card-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-3);
+  min-width: 24px;
+}
+
+.card-icon { font-size: 2rem; }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.card-subtitle {
+  font-size: 0.72rem;
+  color: var(--blue);
+  opacity: 0.7;
+}
+
+.card-level {
+  margin-left: auto;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.nivel-bajo  { background: rgba(0, 230, 118, 0.12); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.3); }
+.nivel-medio { background: rgba(255, 179, 0, 0.12); color: var(--amber); border: 1px solid rgba(255, 179, 0, 0.3); }
+.nivel-alto  { background: rgba(255, 71, 87, 0.12); color: var(--red); border: 1px solid rgba(255, 71, 87, 0.3); }
+.nivel-cloud { background: rgba(45, 123, 255, 0.12); color: var(--blue-light); border: 1px solid rgba(45, 123, 255, 0.3); }
+.nivel-reseller { background: rgba(0, 212, 255, 0.12); color: var(--cyan); border: 1px solid rgba(0, 212, 255, 0.3); }
+
+.card-body { padding: 28px 32px; }
+
+.card-desc {
+  color: var(--text-2);
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.pros h4, .cons h4 {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.03em;
+}
+
+.pros ul li, .cons ul li {
+  font-size: 0.87rem;
+  color: var(--text-2);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.pros ul li:last-child,
+.cons ul li:last-child { border-bottom: none; }
+
+.use-case {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--blue);
+  padding: 12px 16px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.use-case .mono {
+  color: var(--blue);
+  margin-right: 6px;
+  font-size: 0.75rem;
+}
+
+/* ==============================
+   TABLA COMPARATIVA
+============================== */
+.comparativa {
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.compare-table thead tr {
+  background: var(--bg-3);
+  border-bottom: 2px solid var(--border-glow);
+}
+
+.compare-table th {
+  padding: 20px 16px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-2);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.th-featured {
+  color: var(--blue-light) !important;
+  background: rgba(45, 123, 255, 0.08);
+}
+
+.th-icon { font-size: 1.1rem; display: block; margin-bottom: 4px; }
+
+.compare-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.compare-table tbody tr:last-child { border-bottom: none; }
+.compare-table tbody tr:hover { background: rgba(45, 123, 255, 0.04); }
+
+.compare-table td {
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.row-label {
+  text-align: left !important;
+  font-family: var(--font-mono);
+  font-size: 0.78rem !important;
+  color: var(--text) !important;
+  background: var(--bg-3);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.col-featured {
+  background: rgba(45, 123, 255, 0.06);
+  color: var(--blue-light) !important;
+  border-left: 1px solid rgba(45, 123, 255, 0.2);
+  border-right: 1px solid rgba(45, 123, 255, 0.2);
+}
+
+.rating { font-size: 0.7rem; letter-spacing: 2px; }
+.r2 { color: var(--red); }
+.r3 { color: var(--amber); }
+.r4 { color: var(--blue); }
+.r5 { color: var(--green); }
+
+/* ==============================
+   FOOTER
+============================== */
+.footer {
+  position: relative;
+  background: var(--bg-3);
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.footer-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(45, 123, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 123, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.footer-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 56px 24px 40px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-info { flex: 1; min-width: 240px; }
+
+.footer-student {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.footer-uni {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-bottom: 6px;
+}
+
+.footer-course {
+  font-size: 0.7rem;
+  color: var(--blue);
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+}
+
+.footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 5px 12px;
+  background: var(--blue-dim);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--blue-light);
+}
+
+.footer-bottom {
+  position: relative;
+  text-align: center;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+}
+
+/* ==============================
+   ANIMATIONS
+============================== */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Scroll reveal utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 110px 24px 60px;
+    text-align: center;
+  }
+  .hero-sub { margin: 0 auto 32px; }
+  .hero-cta { justify-content: center; }
+  .hero-visual { order: -1; }
+  .rack-unit { width: 200px; }
+
+  .what-grid { grid-template-columns: 1fr; gap: 40px; }
+  .what-diagram { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .diagram-arrow { flex-direction: row; gap: 8px; align-items: center; padding: 0 8px; }
+  .arrow-line { width: 28px; height: 2px; background: linear-gradient(to right, var(--blue), transparent); }
+
+  .card-header { gap: 12px; }
+  .card-level { margin-left: 0; }
+  .pros-cons { grid-template-columns: 1fr; }
+
+  .navbar { padding: 16px 24px; }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(4, 6, 15, 0.98); padding: 24px; border-bottom: 1px solid var(--border); gap: 20px; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+
+  .footer-content { flex-direction: column; text-align: center; align-items: center; }
+  .footer-tags { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2.8rem; }
+  .card-body, .card-header { padding: 20px; }
+  .fact-row { gap: 10px; }
+}
+
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">HostingDev</span>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#que-es">¿Qué es?</a></li>
+      <li><a href="#tipos">Tipos</a></li>
+      <li><a href="#comparativa">Comparativa</a></li>
+      <li><a href="#footer">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-label mono">/</p>
+      <h1 class="hero-title">
+        Tipos de<br/>
+        <span class="hero-accent">Hosting</span>
+      </h1>
+      <p class="hero-sub">Infraestructura web, servicios de alojamiento y arquitecturas en la nube — una guía técnica completa.</p>
+      <div class="hero-cta">
+        <a href="#tipos" class="btn-primary">Explorar tipos</a>
+        <a href="#comparativa" class="btn-outline">Ver comparativa</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="server-rack">
+        <div class="rack-unit" style="--d:0"></div>
+        <div class="rack-unit" style="--d:1"></div>
+        <div class="rack-unit" style="--d:2"></div>
+        <div class="rack-unit active" style="--d:3"></div>
+        <div class="rack-unit" style="--d:4"></div>
+        <div class="rack-unit active" style="--d:5"></div>
+        <div class="rack-unit" style="--d:6"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUÉ ES HOSTING -->
+  <section class="section what-is" id="que-es">
+    <div class="container">
+      <div class="section-tag mono">01 / Fundamentos</div>
+      <h2 class="section-title">¿Qué es un <span class="accent">Hosting</span>?</h2>
+      <div class="what-grid">
+        <div class="what-text">
+          <p>El <strong>hosting</strong> (alojamiento web) es un servicio que permite a individuos y organizaciones publicar un sitio web o aplicación en Internet. Un proveedor de hosting proporciona las tecnologías y servicios necesarios para que el sitio sea accesible desde cualquier parte del mundo.</p>
+          <p>Funciona como el "terreno" sobre el cual se edifica tu presencia digital: los archivos, bases de datos, correos y recursos se almacenan en servidores remotos conectados permanentemente a la red global.</p>
+          <div class="fact-row">
+            <div class="fact-box"><span class="fact-num">24/7</span><span class="fact-label">Disponibilidad</span></div>
+            <div class="fact-box"><span class="fact-num">99.9%</span><span class="fact-label">Uptime garantizado</span></div>
+            <div class="fact-box"><span class="fact-num">IPv6</span><span class="fact-label">Infraestructura global</span></div>
+          </div>
+        </div>
+        <div class="what-diagram">
+          <div class="diagram-node user">
+            <div class="node-icon">👤</div>
+            <span>Usuario</span>
+          </div>
+          <div class="diagram-arrow">
+            <div class="arrow-line"></div>
+            <span class="mono arrow-label">HTTP/HTTPS</span>
+          </div>
+          <div class="diagram-node server">
+            <div class="node-icon">🖥️</div>
+            <span>Servidor</span>
+          </div>
+          <div class="diagram-arrow">
+            <div class="arrow-line"></div>
+            <span class="mono arrow-label">DB Query</span>
+          </div>
+          <div class="diagram-node db">
+            <div class="node-icon">🗄️</div>
+            <span>Base de Datos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPOS DE HOSTING -->
+  <section class="section tipos" id="tipos">
+    <div class="container">
+      <div class="section-tag mono">02 / Clasificación</div>
+      <h2 class="section-title">Tipos de <span class="accent">Hosting</span></h2>
+      <p class="section-sub">Cada arquitectura de alojamiento responde a necesidades específicas de rendimiento, costo y escalabilidad.</p>
+
+      <!-- SHARED -->
+      <div class="hosting-card" data-index="0">
+        <div class="card-header">
+          <div class="card-badge">01</div>
+          <div class="card-icon">🌐</div>
+          <div>
+            <h3 class="card-title">Hosting Compartido</h3>
+            <p class="card-subtitle mono">Shared Hosting</p>
+          </div>
+          <div class="card-level nivel-bajo">Básico</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Múltiples sitios web coexisten en un mismo servidor físico, compartiendo sus recursos como CPU, RAM y almacenamiento. Es la solución más económica y accesible para sitios pequeños.</p>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>✅ Ventajas</h4>
+              <ul>
+                <li>Costo muy bajo (desde $2–5/mes)</li>
+                <li>Configuración sencilla, sin conocimientos técnicos</li>
+                <li>Panel de control cPanel incluido</li>
+                <li>Soporte técnico gestionado por el proveedor</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Desventajas</h4>
+              <ul>
+                <li>Recursos limitados y compartidos</li>
+                <li>Efecto "vecino ruidoso" (otros sitios afectan tu rendimiento)</li>
+                <li>Sin acceso root al servidor</li>
+                <li>No apto para tráfico alto o aplicaciones complejas</li>
+              </ul>
+            </div>
+          </div>
+          <div class="use-case"><span class="mono">// Ideal para:</span> Blogs personales, portafolios, sitios corporativos pequeños, proyectos estudiantiles.</div>
+        </div>
+      </div>
+
+      <!-- VPS -->
+      <div class="hosting-card" data-index="1">
+        <div class="card-header">
+          <div class="card-badge">02</div>
+          <div class="card-icon">⚡</div>
+          <div>
+            <h3 class="card-title">VPS Hosting</h3>
+            <p class="card-subtitle mono">Virtual Private Server</p>
+          </div>
+          <div class="card-level nivel-medio">Intermedio</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Un servidor físico se divide en múltiples entornos virtuales aislados mediante hipervisores (como KVM o VMware). Cada VPS tiene recursos dedicados garantizados y acceso root completo.</p>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>✅ Ventajas</h4>
+              <ul>
+                <li>Recursos dedicados (RAM, CPU, almacenamiento)</li>
+                <li>Acceso root y control total del sistema operativo</li>
+                <li>Mayor seguridad y aislamiento</li>
+                <li>Escalable según demanda</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Desventajas</h4>
+              <ul>
+                <li>Costo más elevado ($15–80/mes)</li>
+                <li>Requiere conocimientos de administración de servidores</li>
+                <li>Responsabilidad de actualizaciones y seguridad</li>
+                <li>Recursos físicos siguen siendo compartidos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="use-case"><span class="mono">// Ideal para:</span> Aplicaciones web medianas, e-commerce, APIs REST, proyectos con tráfico moderado-alto.</div>
+        </div>
+      </div>
+
+      <!-- DEDICADO -->
+      <div class="hosting-card" data-index="2">
+        <div class="card-header">
+          <div class="card-badge">03</div>
+          <div class="card-icon">🔒</div>
+          <div>
+            <h3 class="card-title">Hosting Dedicado</h3>
+            <p class="card-subtitle mono">Dedicated Server</p>
+          </div>
+          <div class="card-level nivel-alto">Avanzado</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Un servidor físico completo es asignado exclusivamente a un único cliente. Todo el hardware — procesadores, RAM, discos — está disponible sin compartir con nadie más.</p>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>✅ Ventajas</h4>
+              <ul>
+                <li>Rendimiento máximo sin interferencias</li>
+                <li>Seguridad y aislamiento total</li>
+                <li>Personalización completa del hardware y software</li>
+                <li>IP dedicada y recursos garantizados al 100%</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Desventajas</h4>
+              <ul>
+                <li>Costo muy elevado ($80–300+/mes)</li>
+                <li>Requiere experiencia técnica avanzada</li>
+                <li>Escalabilidad limitada (hardware físico)</li>
+                <li>Tiempo de configuración inicial mayor</li>
+              </ul>
+            </div>
+          </div>
+          <div class="use-case"><span class="mono">// Ideal para:</span> Grandes empresas, bancos, plataformas con millones de usuarios, juegos online masivos.</div>
+        </div>
+      </div>
+
+      <!-- CLOUD -->
+      <div class="hosting-card featured" data-index="3">
+        <div class="card-featured-label">⭐ Más popular hoy</div>
+        <div class="card-header">
+          <div class="card-badge">04</div>
+          <div class="card-icon">☁️</div>
+          <div>
+            <h3 class="card-title">Cloud Hosting</h3>
+            <p class="card-subtitle mono">Cloud Infrastructure</p>
+          </div>
+          <div class="card-level nivel-cloud">Escalable</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Utiliza una red de servidores interconectados en la nube para distribuir los recursos dinámicamente. Si un servidor falla, otro toma el relevo automáticamente, garantizando alta disponibilidad.</p>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>✅ Ventajas</h4>
+              <ul>
+                <li>Escalabilidad automática en tiempo real</li>
+                <li>Alta disponibilidad y redundancia</li>
+                <li>Pago por uso (pay-as-you-go)</li>
+                <li>Infraestructura global distribuida</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Desventajas</h4>
+              <ul>
+                <li>Costos impredecibles con alto tráfico</li>
+                <li>Latencia variable según región</li>
+                <li>Dependencia del proveedor (vendor lock-in)</li>
+                <li>Configuración compleja para arquitecturas avanzadas</li>
+              </ul>
+            </div>
+          </div>
+          <div class="use-case"><span class="mono">// Ideal para:</span> Startups en crecimiento, SaaS, aplicaciones con tráfico variable, microservicios y DevOps.</div>
+        </div>
+      </div>
+
+      <!-- RESELLER -->
+      <div class="hosting-card" data-index="4">
+        <div class="card-header">
+          <div class="card-badge">05</div>
+          <div class="card-icon">💼</div>
+          <div>
+            <h3 class="card-title">Reseller Hosting</h3>
+            <p class="card-subtitle mono">Reseller / White-Label</p>
+          </div>
+          <div class="card-level nivel-reseller">Empresarial</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Permite comprar recursos de hosting en grandes bloques para luego revenderlos a clientes finales bajo tu propia marca. Incluye herramientas como WHM (Web Host Manager) para gestionar múltiples cuentas.</p>
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>✅ Ventajas</h4>
+              <ul>
+                <li>Genera ingresos como proveedor de hosting</li>
+                <li>Marca blanca (white-label) personalizable</li>
+                <li>Panel WHM para gestión centralizada</li>
+                <li>Ingresos recurrentes mensuales</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>❌ Desventajas</h4>
+              <ul>
+                <li>Requiere gestión activa de clientes</li>
+                <li>Responsabilidad ante incidencias de clientes</li>
+                <li>Inversión inicial en recursos del plan</li>
+                <li>Competencia alta en el mercado de hosting</li>
+              </ul>
+            </div>
+          </div>
+          <div class="use-case"><span class="mono">// Ideal para:</span> Agencias digitales, freelancers que gestionan varios clientes, emprendedores del sector tech.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TABLA COMPARATIVA -->
+  <section class="section comparativa" id="comparativa">
+    <div class="container">
+      <div class="section-tag mono">03 / Análisis</div>
+      <h2 class="section-title">Tabla <span class="accent">Comparativa</span></h2>
+      <p class="section-sub">Selecciona el tipo de hosting correcto según tus necesidades técnicas y presupuesto.</p>
+
+      <div class="table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Característica</th>
+              <th><span class="th-icon">🌐</span><br/>Compartido</th>
+              <th><span class="th-icon">⚡</span><br/>VPS</th>
+              <th><span class="th-icon">🔒</span><br/>Dedicado</th>
+              <th class="th-featured"><span class="th-icon">☁️</span><br/>Cloud</th>
+              <th><span class="th-icon">💼</span><br/>Reseller</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Precio/mes</td>
+              <td>$2 – $10</td>
+              <td>$15 – $80</td>
+              <td>$80 – $300+</td>
+              <td class="col-featured">Variable</td>
+              <td>$20 – $60</td>
+            </tr>
+            <tr>
+              <td class="row-label">Rendimiento</td>
+              <td><span class="rating r2">●●○○○</span></td>
+              <td><span class="rating r3">●●●○○</span></td>
+              <td><span class="rating r5">●●●●●</span></td>
+              <td class="col-featured"><span class="rating r4">●●●●○</span></td>
+              <td><span class="rating r3">●●●○○</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Escalabilidad</td>
+              <td>❌ Baja</td>
+              <td>⚠️ Media</td>
+              <td>⚠️ Limitada</td>
+              <td class="col-featured">✅ Alta</td>
+              <td>⚠️ Media</td>
+            </tr>
+            <tr>
+              <td class="row-label">Seguridad</td>
+              <td>⚠️ Básica</td>
+              <td>✅ Buena</td>
+              <td>✅ Muy alta</td>
+              <td class="col-featured">✅ Alta</td>
+              <td>⚠️ Media</td>
+            </tr>
+            <tr>
+              <td class="row-label">Control técnico</td>
+              <td>❌ Ninguno</td>
+              <td>✅ Root</td>
+              <td>✅ Total</td>
+              <td class="col-featured">✅ Alto</td>
+              <td>✅ WHM</td>
+            </tr>
+            <tr>
+              <td class="row-label">Dificultad</td>
+              <td>🟢 Fácil</td>
+              <td>🟡 Media</td>
+              <td>🔴 Alta</td>
+              <td class="col-featured">🟡 Media</td>
+              <td>🟡 Media</td>
+            </tr>
+            <tr>
+              <td class="row-label">Alta disponibilidad</td>
+              <td>❌ No</td>
+              <td>⚠️ Parcial</td>
+              <td>⚠️ Manual</td>
+              <td class="col-featured">✅ Automática</td>
+              <td>❌ No</td>
+            </tr>
+            <tr>
+              <td class="row-label">Casos de uso</td>
+              <td>Blogs, portafolios</td>
+              <td>APIs, e-commerce</td>
+              <td>Empresas, juegos</td>
+              <td class="col-featured">SaaS, startups</td>
+              <td>Agencias</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="footer">
+    <div class="footer-grid-bg"></div>
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">HostingDev</span>
+      </div>
+      <div class="footer-info">
+        <p class="footer-student">Elaborado por: <strong>Nehemias Martinez</strong></p>
+        <p class="footer-uni">🏛️ Universidad Mariano Galvez · Facultad de Ingeniería</p>
+        <p class="footer-course mono">// Redes y Servicios de Internet </p>
+      </div>
+      <div class="footer-tags">
+      </div>
+    </div>
+    <div class="footer-bottom">
+    </div>
+  </footer>
+
+  <script>
+/* ==============================
+   NAVBAR SCROLL EFFECT
+============================== */
+const navbar = document.getElementById('navbar');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+/* ==============================
+   HAMBURGER MENU
+============================== */
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  hamburger.classList.toggle('active');
+});
+
+// Close menu on link click
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
+  });
+});
+
+/* ==============================
+   SMOOTH SCROLL FOR ANCHOR LINKS
+============================== */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* ==============================
+   INTERSECTION OBSERVER — SCROLL REVEAL
+============================== */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -60px 0px'
+};
+
+// Generic reveal for .reveal elements
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Hosting cards stagger animation
+const cardObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const delay = parseInt(entry.target.dataset.index || 0) * 100;
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, delay);
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.hosting-card').forEach(card => cardObserver.observe(card));
+
+// What-is section reveal
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.what-text, .what-diagram, .fact-box').forEach((el, i) => {
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, i * 120);
+      });
+      sectionObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+const whatGrid = document.querySelector('.what-grid');
+if (whatGrid) {
+  // Set initial state for animation
+  whatGrid.querySelectorAll('.what-text, .what-diagram').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+  });
+  whatGrid.querySelectorAll('.fact-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  });
+  sectionObserver.observe(whatGrid);
+}
+
+/* ==============================
+   TABLE ROW HIGHLIGHT ON HOVER
+============================== */
+document.querySelectorAll('.compare-table tbody tr').forEach(row => {
+  row.addEventListener('mouseenter', () => {
+    row.querySelectorAll('td').forEach(td => {
+      td.style.transition = 'background 0.25s ease';
+    });
+  });
+});
+
+/* ==============================
+   ACTIVE NAV LINK ON SCROLL
+============================== */
+const sections = document.querySelectorAll('section[id], header[id]');
+const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+
+const activeLinkObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navAnchors.forEach(a => a.classList.remove('active'));
+      const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(s => activeLinkObserver.observe(s));
+
+// Add active style via JS
+const activeStyle = document.createElement('style');
+activeStyle.textContent = `.nav-links a.active { color: var(--blue-light) !important; }`;
+document.head.appendChild(activeStyle);
+
+/* ==============================
+   TYPING EFFECT — HERO LABEL
+============================== */
+const heroLabel = document.querySelector('.hero-label');
+if (heroLabel) {
+  const text = heroLabel.textContent;
+  heroLabel.textContent = '';
+  let i = 0;
+  const type = () => {
+    if (i < text.length) {
+      heroLabel.textContent += text[i++];
+      setTimeout(type, 38);
+    }
+  };
+  setTimeout(type, 400);
+}
+
+/* ==============================
+   RACK UNIT LIVE PULSE
+============================== */
+const rackUnits = document.querySelectorAll('.rack-unit');
+setInterval(() => {
+  const random = rackUnits[Math.floor(Math.random() * rackUnits.length)];
+  random.classList.add('active');
+  setTimeout(() => {
+    // Only remove if not one of the original active ones (indices 3, 5)
+    const idx = parseInt(getComputedStyle(random).getPropertyValue('--d')) || 0;
+    if (idx !== 3 && idx !== 5) random.classList.remove('active');
+  }, 900);
+}, 1200);
+
+/* ==============================
+   TABLE COMPARATIVA COLUMN HIGHLIGHT
+============================== */
+const tableHeaders = document.querySelectorAll('.compare-table th');
+tableHeaders.forEach((th, colIdx) => {
+  th.addEventListener('mouseenter', () => {
+    document.querySelectorAll('.compare-table tr').forEach(row => {
+      const cells = row.querySelectorAll('td, th');
+      if (cells[colIdx]) cells[colIdx].style.background = 'rgba(45, 123, 255, 0.07)';
+    });
+  });
+  th.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.compare-table td, .compare-table th').forEach(cell => {
+      cell.style.background = '';
+    });
+  });
+});
+
+/* ==============================
+   CONSOLE EASTER EGG
+============================== */
+console.log(`%c
+  ██╗  ██╗ ██████╗ ███████╗████████╗██╗███╗   ██╗ ██████╗ 
+  ██║  ██║██╔═══██╗██╔════╝╚══██╔══╝██║████╗  ██║██╔════╝ 
+  ███████║██║   ██║███████╗   ██║   ██║██╔██╗ ██║██║  ███╗
+  ██╔══██║██║   ██║╚════██║   ██║   ██║██║╚██╗██║██║   ██║
+  ██║  ██║╚██████╔╝███████║   ██║   ██║██║ ╚████║╚██████╔╝
+  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+  
+  Proyecto Universitario — Tipos de Hosting
+  Nehemias Martinez
+`, 'color: #2d7bff; font-family: monospace;');
+
+</script>
+</body>
+</html>
